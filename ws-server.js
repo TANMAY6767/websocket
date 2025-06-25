@@ -143,6 +143,9 @@ server.on('request', (req, res) => {
   if (req.url === '/health') {
     res.writeHead(200);
     res.end('OK');
+  } else if (req.url === '/') {
+    res.writeHead(200, { 'Content-Type': 'text/plain' });
+    res.end('WebSocket Server is up');
   }
 });
 

@@ -161,6 +161,7 @@ setInterval(() => {
     console.error('Health check error:', error);
   }
 }, 30000); // Every 30 seconds
-const PORT = process.env.WS_PORT || 3001;
+const PORT = process.env.PORT || process.env.WS_PORT || 3001;
+
 server.listen(PORT, () => 
   console.log(`WebSocket server running on port ${PORT}`));

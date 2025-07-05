@@ -43,7 +43,12 @@ wss.on('connection', (ws, req) => {
     ws.close(4000, 'Missing shareId');
     return;
   }
-
+  if (shareId === 'keepalive') {
+  console.log('[WS] 🔄 Keep-alive ping received');
+  ws.send(JSON.stringify({ type: 'pong', message: 'alive' }));
+  ws.close();
+  return;
+}
   // Skip DB lookup if room already exists
   if (!rooms.has(shareId)) {
     rooms.set(shareId, {
@@ -139,6 +144,7 @@ wss.on('connection', (ws, req) => {
   });
 });
 // Health check endpoint
+
 server.on('request', (req, res) => {
   if (req.url === '/health') {
     res.writeHead(200);
